@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+  <title>WordCardsMVP</title>
+
+  <meta name="theme-color" content="#F5EAD8">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="WordCards">
+
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon-192.png">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <div id="screen-training" class="screen active"></div>
+    <div id="screen-wordbase" class="screen"></div>
+    <div id="screen-statistics" class="screen"></div>
+  </div>
+
+  <div id="tabbar">
+    <div class="tabbar-row" id="tabbar-row"></div>
+    <div class="tabbar-handle"><span></span></div>
+  </div>
+
+  <div id="settings-overlay"></div>
+
+  <div id="sheet-backdrop" class="sheet-backdrop">
+    <div id="sheet" class="sheet" onclick="event.stopPropagation()">
+      <div id="sheet-header" class="sheet-header">
+        <span id="sheet-header-title" class="sheet-title"></span>
+        <button id="sheet-done-btn"></button>
+      </div>
+      <div id="sheet-body" class="sheet-body"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
