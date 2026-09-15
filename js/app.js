@@ -6,12 +6,14 @@ import { TrainingView } from './views/training.js';
 import { WordBaseView } from './views/wordbase.js';
 import { StatisticsView } from './views/statistics.js';
 import { SettingsOverlay } from './views/settings.js';
+import { setupSwipeNavigation } from './swipe.js';
 
 const TABS = [
   { key: 'training', title: 'Training', icon: 'graduationCap' },
   { key: 'wordbase', title: 'Word Base', icon: 'stackFill' },
   { key: 'statistics', title: 'Statistics', icon: 'chartBar' },
 ];
+const TAB_ORDER = TABS.map(t => t.key);
 
 async function main() {
   const store = new VocabStore();
@@ -65,6 +67,17 @@ async function main() {
   renderTabBar();
   screens[activeTab].classList.add('active');
   views[activeTab].activate();
+
+  // Swipe left/right anywhere in the screen area to move between tabs
+  // (mirrors the native app's `.tabViewStyle(.page(...))` swipeable TabView).
+  setupSwipeNavigation(document.getElementById('app'), {
+    order: TAB_ORDER,
+    getActiveKey: () => activeTab,
+    onSwitch: switchTab,
+    isBlocked: () =>
+      document.getElementById('settings-overlay').classList.contains('open') ||
+      document.getElementById('sheet-backdrop').classList.contains('open'),
+  });
 
   // Pre-render inactive tabs once so switching feels instant (builds their snapshot too).
   for (const k of Object.keys(views)) {

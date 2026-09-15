@@ -136,7 +136,7 @@ button {
   flex: 0 0 auto;
   background: var(--nav-bar);
   border-top: 1px solid var(--nav-border);
-  padding-bottom: max(6px, calc(env(safe-area-inset-bottom) - 18px));
+  padding-bottom: min(8px, env(safe-area-inset-bottom));
 }
 
 .tabbar-row {

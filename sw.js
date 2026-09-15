@@ -1,4 +1,4 @@
-const CACHE_NAME = 'wordcardsmvp-v1';
+const CACHE_NAME = 'wordcardsmvp-v2';
 
 const PRECACHE_URLS = [
   './',
