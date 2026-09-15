@@ -358,7 +358,7 @@ button {
   gap: 6px;
 }
 
-.activity-day svg { width: 13px; height: 13px; color: rgba(100, 92, 80, 0.5); }
+.activity-day svg { width: 22px; height: 22px; color: rgba(100, 92, 80, 0.5); }
 .activity-day.active svg { color: var(--accent); }
 
 .activity-day .dlabel {
