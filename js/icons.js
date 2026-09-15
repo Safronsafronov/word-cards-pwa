@@ -1,8 +1,10 @@
 // Minimal inline SVG icon set, visual stand-ins for the SF Symbols used in the SwiftUI app.
 // All icons use currentColor and a 24x24 viewbox unless noted, stroke-based to stay lightweight.
 
+// width/height="1em" is just a safety-net default (so an icon is never invisible if a
+// CSS rule fails to match it) — every real usage sizes it explicitly via CSS anyway.
 const S = (inner, viewBox = '0 0 24 24') =>
-  `<svg viewBox="${viewBox}" fill="none" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
+  `<svg viewBox="${viewBox}" width="1em" height="1em" fill="none" xmlns="http://www.w3.org/2000/svg">${inner}</svg>`;
 
 export const Icon = {
   graduationCap: S(`<path d="M12 3 2 8l10 5 10-5-10-5Z" fill="currentColor"/><path d="M6 11v5c0 1.4 2.7 3 6 3s6-1.6 6-3v-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M22 8v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`),

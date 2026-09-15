@@ -87,9 +87,13 @@ export function setupSwipeCarousel(track, { order, getActiveKey, onSwitch, isBlo
     if (!horizontal) { setTransform(idx, 0, true); return; }
 
     if (currentDx <= -SWIPE_THRESHOLD_PX && idx < order.length - 1) {
-      onSwitch(order[idx + 1]);
+      const nextIdx = idx + 1;
+      onSwitch(order[nextIdx]);
+      setTransform(nextIdx, 0, true); // finish the slide into the new tab's resting position
     } else if (currentDx >= SWIPE_THRESHOLD_PX && idx > 0) {
-      onSwitch(order[idx - 1]);
+      const nextIdx = idx - 1;
+      onSwitch(order[nextIdx]);
+      setTransform(nextIdx, 0, true);
     } else {
       setTransform(idx, 0, true); // didn't clear the threshold — spring back
     }
