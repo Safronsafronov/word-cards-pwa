@@ -6,7 +6,7 @@ import { TrainingView } from './views/training.js';
 import { WordBaseView } from './views/wordbase.js';
 import { StatisticsView } from './views/statistics.js';
 import { SettingsOverlay } from './views/settings.js';
-import { setupSwipeNavigation } from './swipe.js';
+import { setupSwipeCarousel } from './swipe.js';
 
 const TABS = [
   { key: 'training', title: 'Training', icon: 'graduationCap' },
@@ -35,6 +35,7 @@ async function main() {
   };
 
   let activeTab = 'training';
+  let carousel = null;
 
   function renderTabBar() {
     const bar = document.getElementById('tabbar-row');
@@ -45,11 +46,13 @@ async function main() {
       </button>
     `).join('');
     bar.querySelectorAll('[data-tab]').forEach(btn => {
-      btn.onclick = () => switchTab(btn.dataset.tab);
+      btn.onclick = () => switchTab(btn.dataset.tab, true);
     });
   }
 
-  function switchTab(key) {
+  // `animateCarousel` is false for the swipe gesture itself (the carousel already
+  // dragged/settled visually) and true for tab-bar taps (need the slide animation).
+  function switchTab(key, animateCarousel) {
     if (key === activeTab && key === 'training') {
       views.training.requestExitToDashboard();
       return;
@@ -62,18 +65,19 @@ async function main() {
       else views[k].deactivate();
     }
     renderTabBar();
+    if (animateCarousel) carousel?.syncToActive(true);
   }
 
   renderTabBar();
   screens[activeTab].classList.add('active');
   views[activeTab].activate();
 
-  // Swipe left/right anywhere in the screen area to move between tabs
+  // Swipe left/right anywhere in the screen area to slide between tabs
   // (mirrors the native app's `.tabViewStyle(.page(...))` swipeable TabView).
-  setupSwipeNavigation(document.getElementById('app'), {
+  carousel = setupSwipeCarousel(document.getElementById('tab-track'), {
     order: TAB_ORDER,
     getActiveKey: () => activeTab,
-    onSwitch: switchTab,
+    onSwitch: (key) => switchTab(key, false),
     isBlocked: () =>
       document.getElementById('settings-overlay').classList.contains('open') ||
       document.getElementById('sheet-backdrop').classList.contains('open'),
